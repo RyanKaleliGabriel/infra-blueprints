@@ -10,33 +10,47 @@
 
 ## Installation and setup steps
 
- 1. Install QEMU/KVM - Qemu is the actual emulator/virtualizer that runs VMS. KVM(Kernel-based virtual machine) enables hardware accelartion, making Vms much faster. Qemu emulates hardware platforms (CPU, memory, disk, etc.), Allows you to run virtual machines of various architectures (x86, ARM, etc.), Can run completely in software-only mode (slow, but flexible), Works with KVM to use hardware acceleration (fast). Run these on your command line ona after the other
+ 1. Install QEMU/KVM - Qemu is the actual emulator/virtualizer that runs VMS. KVM(Kernel-based virtual machine) enables hardware accelartion, making Vms much faster. Qemu emulates hardware platforms (CPU, memory, disk, etc.), Allows you to run virtual machines of various architectures (x86, ARM, etc.), Can run 
+ completely in software-only mode (slow, but flexible), Works with KVM to use hardware acceleration (fast). Run these on your command line ona after the other
+  
   ``` sudo apt-get qemu-kvm ```
+
+ 
   ``` kvm-ok ```
+ 
  If you see this:
+ 
  ``` INFO: /dev/kvm exists ```
+ 
  ```KVM acceleration can be used```
+ 
  You're good to continue
 
  2. Install libvirt - Libvirt is a system service that provides the underlying virtualization management functionality. It manages hypervisors like (KVM,QEMU,Xen, etc), storage, networsk and virtual machines. Run this on your command line.
+   
     ```apt-get install libvirt-daemon-system libvirt-clients```
 
  3. Start and enable libvirtd service - This will start libvirtd service on system reboot
+   
     ```sudo systemctl start libvirtd```
+   
     ```sudo systemctl enable libvirtd```
 
  4. Add your user to the libvirt group
+   
     ```sudo usermod -aG libvirt $(whoami)```
 
  5. Log out and log back in
 
  6. Install virt-manager(virtual machines manager) - This si a hraphical user interface for managing virtual machines using libvirt. It connect to libvirtd adn gives you a visual way to create, delete and manage Vms run this on your command line
+    
     ``` apt-get install virt-manager ```
 
  7. Launch virt-manager
+    
     ```virt-manager```
 
-## Creating and managing virtual machines
+## Creating and managing virtual machines.
 
  1. Open the virtual machines manager.
 
@@ -67,11 +81,13 @@
  3. In the NIC tab, we will make some changes, if you're using a computer and your host is connected to wireless network (WIFI), you can get the mac address shown registered in your company's network then  move to the next tab which we will work on, the Display Spice. If you server/computer/host is connected via ethernet or wired connection (direct connection) you must use a bridge to connect to the LAN network. A network bridge connects the vm to the hosts network. Network bridging is a method used to connect two or more separate network interfaces at the data link layer (Layer 2 of the OSI model), making them act as if they are part of the same physical network. It's commonly used in virtualization to give virtual machines (VMs) direct access to the host’s network.
 
  4. To create a network bridge in ubuntu navigate to 
+ 
  ``` /etc/netplan``` 
+ 
   and modify the main yaml file. A sample configuration of a bridge
+
 ```
-#This is the network config written by 'subiquity'
-network:
+#This is the network config written by 'subiquity' network:
         version: 2
         renderer: networkd
         ethernets:
@@ -89,10 +105,11 @@ network:
                                 addresses: [172.28.0.38, 172.28.0.37, 172.28.0.24, 172.28.0.128]  
 ```
 Finally run 
+
 ```sudo netplan apply```
 
 5. Get your mac address registered in your company's network to prevent and restrictions. Click apply and head on to the Display spice
 
-6. In the display spice server select the Spice server in the type dropdown. Select address in the listen type drop down. Select the All interfaces in the address drop down. Click apply and you can begin the installation by clicking the Begin installation on you top left.
+6. In the display spice server select the Spice server in the type dropdown. Select address in the listen type drop down. Select the All interfaces in the address drop down. Click apply and you can begin the installation by clicking the Begin installation on you top left..
 
 ## Ubuntu installation Process.
