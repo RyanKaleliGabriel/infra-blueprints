@@ -1,6 +1,6 @@
 ## Implementation of a Full Backup with Cron jobs.
 
-> This documentation is about how to execute a shell script that will run implement a fullbackup for files.
+> This documentation is about how to execute a shell script that will implement a fullbackup for files or folders.
 
 ## Tools
 
