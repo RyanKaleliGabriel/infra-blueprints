@@ -78,7 +78,7 @@
 
  2. Confirm the basic details and add more if you wish to. Jump to the OS information tab to the OS information. Go to the CPU tab and validate the cpus you allocated. Head to the memory tab and validate. Fast and forward to the Boot options tab and check the 'Start virtual machine on host boot up' option. Click apply on you bottom right.  Move to the VirtIO Disk 1 and validate. Do this for all tabs upto the NIC tab.
 
- 3. In the NIC tab, we will make some changes, if you're using a computer and your host is connected to wireless network (WIFI), you can get the mac address shown registered in your company's network then  move to the next tab which we will work on, the Display Spice. If you server/computer/host is connected via ethernet or wired connection (direct connection) you must use a bridge to connect to the LAN network. A network bridge connects the vm to the hosts network. Network bridging is a method used to connect two or more separate network interfaces at the data link layer (Layer 2 of the OSI model), making them act as if they are part of the same physical network. It's commonly used in virtualization to give virtual machines (VMs) direct access to the host’s network.
+ 3. In the NIC tab, we will make some changes, if you're using a computer and your host is connected to wireless network (WIFI), you can get the mac address shown registered in your company's network then  move to the next tab which we will work on, the Display Spice. If you server/computer/host is connected via ethernet or wired connection (direct connection) you must use a bridge to connect to the LAN network. A network bridge connects the vm to the host's network. Network bridging is a method used to connect two or more separate network interfaces at the data link layer (Layer 2 of the OSI model), making them act as if they are part of the same physical network. It's commonly used in virtualization to give virtual machines (VMs) direct access to the host’s network.
 
  4. To create a network bridge in ubuntu navigate to 
  
@@ -113,3 +113,19 @@ Finally run
 6. In the display spice server select the Spice server in the type dropdown. Select address in the listen type drop down. Select the All interfaces in the address drop down. Click apply and you can begin the installation by clicking the Begin installation on you top left..
 
 ## Ubuntu installation Process.
+
+1. A page will show up asking you to choose your preferred os language, press enter to choose and move to the next part which is keyboard configuration choose your preffered layout and variant.
+
+2. The next part is the base for the installation, i went with ubuntu server. After that move the network configuration, click done (you can modify the IP after the os has installed). Proxy Configuration is the next step, click done. The next step is the mirror configuration, i went with the defaul one
+
+3. Next is a guided storage configuration. I selected 'Use an entire disk' and moved on. A filesystem summary will show up. Unmount the root (/) mount point to have full free space. Delete any avaliable device that is taking up space to have full free space (full storage capacity of your vm). You should have free space and ubuntu-vg(new) or another device with the same space. 
+
+4. Next step is creating your logical volume. Click on the free space and select create logical volume. Name can be changed or left as the default. Prioritise creating a logical volume for the root(/) first the mount should be /, format should be ext4, and the space you wish to allocate the roo. Click create and do the same to the free space for the partitions you wish to have. For data 1, at the mount section, select other and save it as data1/ . Click done to move on to the next section
+
+5. Next is profile configuration, this is self explanatory. Here you will configure the server name and the username of your first user and the password of the user. Next step is SSH configuration, select Install OpenSSH server.
+
+6. The next section is rebooting and you should be good to go
+
+
+
+
