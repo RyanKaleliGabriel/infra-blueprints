@@ -3,7 +3,8 @@
  - Cloning a repository using github personal access token
 
    ```
-   git clone https://<TOKEN>@github.com/USERNAME/<REPO>.git
+   git clone https://<TOKEN>@github.com/<REPO>.git
+   
    ```
 
  - Ignoring a directory and file in .gitignore. Locate your .gitignore page and add the directory/file name
