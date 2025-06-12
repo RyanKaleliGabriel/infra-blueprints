@@ -9,12 +9,21 @@
  - Your attention
 
 ## Installation and setup steps
+ 1. Check if your server supports virtualization
 
- 1. Install QEMU/KVM - Qemu is the actual emulator/virtualizer that runs VMS. KVM(Kernel-based virtual machine) enables hardware accelartion, making Vms much faster. Qemu emulates hardware platforms (CPU, memory, disk, etc.), Allows you to run virtual machines of various architectures (x86, ARM, etc.), Can run 
- completely in software-only mode (slow, but flexible), Works with KVM to use hardware acceleration (fast). Run these on your command line ona after the other
-  
-  ``` sudo apt-get qemu-kvm ```
+  ```
+  egrep -c '(vmx|svm)' /proc/cpuinfo
+  ```
 
+ 2. Install QEMU/KVM, libvirt, bridge-utils, libvirt-clients,  -
+     - Qemu is the actual emulator/virtualizer that runs VMS. Qemu emulates hardware platforms (CPU, memory, disk, etc.)
+     -  KVM(Kernel-based virtual machine) is a hardware-assisted virtualization technology built into the Linux kernel, enables hardware accelartion, making Vms much faster. 
+     - Libvirt	Manages VMs, networks, and storage for QEMU/KVM.
+     - Libvirt-daemon-system ensures libvirtd is running properly as a service
+     - Libvirt-clients - includes client-side command-line tools to interact with the libvirtd daemon
+     - Bridge utils - a package that provides the commands to create and manage network bridges.
+
+  ``` apt-get install qemu-kvm bridge-utils libvirt-daemon-system libvirt-clients ``` 
  
   ``` kvm-ok ```
  
@@ -25,10 +34,6 @@
  ```KVM acceleration can be used```
  
  You're good to continue
-
- 2. Install libvirt - Libvirt is a system service that provides the underlying virtualization management functionality. It manages hypervisors like (KVM,QEMU,Xen, etc), storage, networsk and virtual machines. Run this on your command line.
-   
-    ```apt-get install libvirt-daemon-system libvirt-clients```
 
  3. Start and enable libvirtd service - This will start libvirtd service on system reboot
    
