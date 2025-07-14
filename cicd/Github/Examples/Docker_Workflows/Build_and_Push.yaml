@@ -1,0 +1,49 @@
+name: Dockerhub workflow
+
+on:
+  push: 
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest 
+    
+    # Check out (clone) the code from the current repository into github actions 
+    # runner so that the workflow can access and work with the code
+    steps: 
+    - name: Checkout code from current repository to the ubuntu runner.
+      uses: actions/checkout@v4
+    
+    - name: Set image meta attributes
+      # This sets a reference name so other steps can access the outputs of this step
+      id: meta
+      uses: docker/metadata-action@v5
+      # with: — input parameters for the action:
+      with:
+        images: ${{ secrets.DOCKER_USER }}/images_name
+        tags: latest
+
+    - name: Set up Docker Buildx
+      # This sets up docker buildx an adavanced build feature for Docker that enables: 
+      # Multiplatform builds (e.g Linux/amd64 and Linux arm64),
+      # Build caching, Faster, parallelized Docker builds and more control over the docker build process.
+      uses: docker/setup-buildx-action@v3
+     
+    - name: Login to docker registry
+      uses: docker/login-action@v3
+      with:
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_SECRET }}
+
+    - name: Build and push to docker
+      uses: docker/build-push-action@v6
+      with: 
+        context: .
+        push: true
+        tags: ${{ steps.meta.outputs.tags }}
+        username: ${{ secrets.DOCKER_USER }}
+        password: ${{ secrets.DOCKER_SECRET }}
+
+      
