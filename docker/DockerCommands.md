@@ -22,6 +22,12 @@
    docker cp /home/spatial/Downloads/julia-1.10.9-musl-x86_64.tar.gz 15062ec62fc7:/home/genie/
    ```
 
+ - Copy a directory from a docker container to host 
+
+    ```
+    docker cp my_container:/app/logs /home/user/logs_backup   
+    ``` 
+
  - Running a base OS image
    
    ```
