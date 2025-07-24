@@ -1,0 +1,45 @@
+FROM frolvlad/alpine-glibc
+
+USER root
+
+
+RUN apk add --no-cache \
+    R \
+    R-dev \
+    g++ \
+    gcc \
+    make \
+    gfortran \
+    bash \
+    curl \
+    zlib-dev \
+    libxml2-dev \
+    libcurl \
+    curl-dev \
+    libxt-dev
+
+RUN mkdir -p /usr/share/doc/R/html/
+RUN mkdir -p /shiny/raster_data
+RUN touch /usr/share/doc/R/html/R.css
+RUN touch /usr/share/doc/R/html/packages.html
+
+RUN apk update
+RUN apk add gdal-dev
+RUN apk add geos-dev
+RUN apk add proj-dev
+RUN apk add abseil-cpp-dev 
+RUN apk add udunits-dev 
+
+WORKDIR /shiny/dashboard
+
+COPY . .
+
+RUN Rscript -e "install.packages('s2', repos='https://cran.rstudio.com')" 
+RUN Rscript -e "install.packages('units', repos='https://cran.rstudio.com')" 
+
+RUN Rscript -e "install.packages(c('dplyr', 'tidyr', 'readr', 'terra', 'sf', 'raster', 'plotly', 'stringr', 'sjmisc', 'leaflet', 'shiny', 'shinycssloaders', 'leaflet.extras', 'pals'), repos='https://cran.rstudio.com')"
+
+
+EXPOSE 3838
+
+CMD [ "Rscript", "-e", "shiny::runApp('/shiny/dashboard', port = 3838, host = '0.0.0.0')" ]
